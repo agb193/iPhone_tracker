@@ -20,7 +20,7 @@ jobs:
 
       - name: 3. Instalando librerías y Navegador
         run: |
-          pip install requests playwright playwright-stealth # <-- Añadida aquí
+          pip install requests playwright
           python -m playwright install chromium --with-deps
 
       - name: 4. Ejecutando el Rastreador
