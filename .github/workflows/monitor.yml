@@ -26,8 +26,4 @@ jobs:
           python -m playwright install chromium --with-deps
 
       - name: Ejecutar script de rastreo
-        env:
-          # Aquí conectamos los Secretos de GitHub con tu script
-          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python main.py
