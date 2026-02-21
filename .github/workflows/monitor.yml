@@ -1,29 +1,37 @@
-name: Rastreador de Precios Horario
+name: iPhone Price Tracker
 
 on:
   schedule:
-    # Se ejecuta al minuto 0 de cada hora
+    # Se ejecutará cada hora (minuto 0)
     - cron: '0 * * * *'
-  workflow_dispatch: # Esto permite ejecutarlo manualmente desde la web de GitHub
+  workflow_dispatch:      # Esto te permite darle al botón "Play" cuando quieras
 
 jobs:
-  build:
+  run-scraper:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Descargar código del repo
+      - name: 1. Descargando el código
         uses: actions/checkout@v4
 
-      - name: Configurar Python
+      - name: 2. Configurando Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: Instalar dependencias
+      - name: 3. Instalando librerías y Navegador
         run: |
-          pip install requests playwright beautifulsoup4
-          # Instalamos el navegador necesario para Playwright
+          pip install requests playwright
+          # Instalamos Chromium y sus dependencias de sistema
           python -m playwright install chromium --with-deps
 
-      - name: Ejecutar script de rastreo
+      - name: 4. Ejecutando el Rastreador
+        # Ya no ponemos la sección "env" con secretos porque están en el .py
         run: python main.py
+
+      - name: 5. Guardar fotos si falla (Opcional)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: capturas-de-error
+          path: "*.png"
+          retention-days: 1
