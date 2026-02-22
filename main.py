@@ -82,14 +82,20 @@ def check_all_prices():
             time.sleep(4) # Pausa entre productos
 
         browser.close()
-
+        
+    contenido = False
     if resultados:
         mensaje = "📊 *Precios Menores de 820:* \n\n"
         for k, v in resultados.items():
             if v<=820:
                 mensaje += f"• {k}: *{v}€*\n"
-                
-        send_to_telegram(mensaje)
+                contenido = True
+         
+        
+        if contenido:
+            send_to_telegram(mensaje) 
+        else:
+            print("Precios altos lambebicho.")
 
 if __name__ == "__main__":
     check_all_prices()
