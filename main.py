@@ -84,9 +84,11 @@ def check_all_prices():
         browser.close()
 
     if resultados:
-        mensaje = "📊 *Precios Actualizados:* \n\n"
+        mensaje = "📊 *Precios Menores de 820:* \n\n"
         for k, v in resultados.items():
-            mensaje += f"• {k}: *{v}€*\n"
+            if v<=820:
+                mensaje += f"• {k}: *{v}€*\n"
+                
         send_to_telegram(mensaje)
 
 if __name__ == "__main__":
