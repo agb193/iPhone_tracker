@@ -97,4 +97,5 @@ def check_all_prices():
             print("No hay ofertas por debajo de 820€.")
 
 if __name__ == "__main__":
-    check_all_prices()
+    # check_all_prices()
+    send_to_telegram('hola')
